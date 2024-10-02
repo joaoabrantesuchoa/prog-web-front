@@ -4,17 +4,20 @@ import { getAllProjects } from "../api";
 export interface Project {
   id: number;
   titulo: string;
-  descricao?: string; 
+  descricao?: string;
   professorId: number;
 }
 
 const ProjectList: React.FC = () => {
-  const [projects, setProjects] = useState<Project[]>([]); 
+  const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const data = await getAllProjects();
+
+        console.log({ data });
+
         setProjects(data);
       } catch (error) {
         console.error("Erro ao carregar projetos:", error);

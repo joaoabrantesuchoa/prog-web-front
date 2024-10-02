@@ -7,6 +7,23 @@ const getAuthHeader = () => {
   return { headers: { Authorization: `Bearer ${token}` } };
 };
 
+export const login = async (email: string, password: string) => {
+  const response = await axios.post(`${API_URL}/login`, { email, password });
+  const { token } = response.data;
+  localStorage.setItem("token", token);
+  return response.data;
+};
+
+export const registerUser = async (userData: {
+  nome: string;
+  email: string;
+  password: string;
+  role: "Aluno" | "Professor";
+}) => {
+  const response = await axios.post(`${API_URL}/register`, userData);
+  return response.data;
+};
+
 export const getAllProjects = async () => {
   const response = await axios.get(`${API_URL}/projetos`, getAuthHeader());
   return response.data;
